@@ -4,11 +4,13 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.joybar.library.common.log.LogLevel;
 import com.joybar.library.common.log.Logger;
 import com.joybar.library.tracker.TrackerConfig;
 import com.joybar.library.tracker.TrackerUtil;
 
+import io.fabric.sdk.android.Fabric;
 import me.joybar.superwifi.BuildConfig;
 import me.joybar.superwifi.config.SDKConfig;
 
@@ -37,6 +39,7 @@ public class MyApplication extends Application {
         super.onCreate();
         intiTracker();
         initLog();
+        initFabric();
     }
 
     private void intiTracker() {
@@ -50,9 +53,15 @@ public class MyApplication extends Application {
     }
 
     private void initLog() {
-        Logger.setLogEnable(true);
+        if (BuildConfig.IS_DEBUG_TYPE) {
+            Logger.setLogEnable(false);
+        }
         Logger.setLogLevel(LogLevel.TYPE_VERBOSE);
     }
 
+    private void initFabric() {
+        Fabric.with(this, new Crashlytics());
+
+    }
 
 }

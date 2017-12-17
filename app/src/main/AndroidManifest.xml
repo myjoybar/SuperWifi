@@ -18,9 +18,21 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.google.android.gms.analytics.AnalyticsService"
+        <!-- GA start-->
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <!-- GA end-->
+
+
+        <!-- Fabric start-->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="4b6ee853daf11bdf4b158e22a937e1bff3d5f48f" />
+
+        <!-- Fabric end-->
     </application>
 
 </manifest>

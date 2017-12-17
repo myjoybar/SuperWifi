@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         TrackerUtil.sendScreenName(TAG);
         TrackerUtil.sentEvent("PAGE","enter page MainActivity");
+        forceCrash();
     }
 
     /**
@@ -34,4 +35,10 @@ public class MainActivity extends AppCompatActivity {
      * which is packaged with this application.
      */
     public native String stringFromJNI();
+
+
+    public void forceCrash() {
+        throw new RuntimeException("This is a crash");
+    }
+
 }
