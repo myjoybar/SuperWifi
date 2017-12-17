@@ -1,0 +1,38 @@
+
+ext {
+    android = [
+            applicationId:"me.joybar.superwifi",
+            compileSdkVersion: 26,
+            targetSdkVersion : 26,
+            minSdkVersion    : 14,
+            buildToolsVersion: "26.0.2",
+            versionCode:0,
+            versionName:"1.0.0"
+    ]
+
+
+    dependencies = [
+            supportv4 : "com.android.support:support-v4:26.1.0",
+            supportv7 : "com.android.support:appcompat-v7:26.1.0",
+            recyclerviewv7 : 'com.android.support:recyclerview-v7:26.1.0',
+            constraintlayout :  'com.android.support.constraint:constraint-layout:1.0.2',
+            supportAnnotations:'com.android.support:support-annotations:27.0.2'
+    ]
+
+    staging = [
+            versionCode:0,
+            versionName:'"1.0.0"',
+
+    ]
+    production = [
+            versionCode:0,
+            versionName:'"1.0.0"'
+    ]
+
+    isDebugType = false //module
+    isPrintLog= false
+
+}
+project.ext.set("is_debug_type",  "false") //主APP
+project.ext.set("is_print_log", "false")
+
