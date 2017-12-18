@@ -53,7 +53,7 @@ public class MyApplication extends Application {
     }
 
     private void initLog() {
-        if (BuildConfig.IS_DEBUG_TYPE) {
+        if (!BuildConfig.IS_DEBUG_TYPE) {
             Logger.setLogEnable(false);
         }
         Logger.setLogLevel(LogLevel.TYPE_VERBOSE);

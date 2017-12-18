@@ -41,14 +41,14 @@ android {
             zipAlignEnabled true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "boolean", "IS_DEBUG_TYPE", "true"
+            buildConfigField "boolean", "IS_DEBUG_TYPE", "false"
         }
         debug {
             signingConfig signingConfigs.debug
             minifyEnabled false
             applicationIdSuffix ".debug"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "boolean", "IS_DEBUG_TYPE", "false"
+            buildConfigField "boolean", "IS_DEBUG_TYPE", "true"
         }
     }
     externalNativeBuild {
@@ -67,10 +67,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     // utils lib
-    api 'com.joybar.libutils:library:1.0.8'
+    api 'com.joybar.libutils:library:1.0.9'
     // fabric
     compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true;
     }
 }
-apply plugin: 'com.google.gms.google-services'

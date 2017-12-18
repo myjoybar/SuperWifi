@@ -32,6 +32,6 @@ local.properties
 # .iml
 *.iml
 
-# .idea
+.idea
 /*/.idea/
 
