@@ -56,16 +56,22 @@ android {
             path "CMakeLists.txt"
         }
     }
+    repositories {
+        flatDir {
+            dirs 'libs'   // aar目录
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation rootProject.ext.dependencies.supportv7
     implementation rootProject.ext.dependencies.constraintlayout
-    testImplementation 'junit:junit:4.12'
+  //  testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
+    //rootshell
+    compile(name: 'RootShell-1.6-release', ext: 'aar')
     // utils lib
     api 'com.joybar.libutils:library:1.0.9'
     // fabric

@@ -1,13 +1,16 @@
 package me.joybar.superwifi.utils;
 
-import com.joybar.library.common.log.Logger;
+import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.joybar.library.common.log.Logger;
+import com.stericson.RootShell.RootShell;
+import com.stericson.RootShell.execution.Command;
+
 import java.util.ArrayList;
 
-import me.joybar.superwifi.data.WifiEntry;
+import me.joybar.superwifi.data.WifiCustomInfo;
+
+import static com.stericson.RootShell.RootShell.commandWait;
 
 /**
  * Created by joybar on 2017/12/18.
@@ -20,11 +23,14 @@ public class WifiPasswordManager {
 
 	String path = "/data/wifi/bcm_supp.conf";
 
+	String[] mOreoLocationList = {"/data/misc/wifi/WifiConfigStore.xml"};
+
+
 	//Split entire path to Path & Filename
 	String mFileName = path.substring(path.lastIndexOf("/") + 1);
 	String mPath = path.substring(0, path.lastIndexOf("/") + 1);
 
-
+	final String BSSID = "bssid";
 	final String SSID = "ssid";
 	final String WPA_PSK = "psk";
 	final String WEP_PSK = "wep_key0";
@@ -32,126 +38,136 @@ public class WifiPasswordManager {
 	final String ENTRY_END = "}";
 	final String NO_PASSWORD_TEXT = "no password";
 
-	public ArrayList<WifiEntry> readFile() {
+	public ArrayList<WifiCustomInfo> readWifiConfigFile() {
 
-		ArrayList<WifiEntry> listWifi = new ArrayList<>();
-		BufferedReader bufferedReader = null;
+		Logger.d(TAG, "readWifiConfigFile");
+		if (android.os.Build.VERSION.SDK_INT >= 26) {
+			return readOreoFiles();
+		} else {
+			return readFile();
+		}
+	}
 
+	public ArrayList<WifiCustomInfo> readOreoFiles() {
+		ArrayList<WifiCustomInfo> result = new ArrayList<>();
+		boolean mRootAccess = RootCheck.canRunRootCommands();
+		if (!mRootAccess) {
+			//cancel(true);
+			return null;
+		} else {
+			Logger.d(TAG, ">26");
+			for (String oreoLocation : mOreoLocationList) {
+				ArrayList<WifiCustomInfo> currentFile = readOreoFile(oreoLocation);
+				if ((currentFile != null) && (!currentFile.isEmpty())) {
+					result.addAll(currentFile);
+				}
+			}
+		}
+		return result;
+
+	}
+
+
+	private ArrayList<WifiCustomInfo> readOreoFile(String configLocation) {
+		ArrayList<WifiCustomInfo> result = new ArrayList<>();
+		if (RootShell.exists(configLocation)) {
+			Logger.d(TAG, "RootShell.exists(configLocation)");
+			ArrayList<String> fileLines = executeForResult("su -c /system/bin/cat " + configLocation);
+			if (fileLines == null) {
+				Logger.d(TAG, "fileLines is null");
+				return result;
+			}
+			StringBuilder buffer = new StringBuilder();
+			for (String thisLine : fileLines) {
+				buffer.append(thisLine).append("\n");
+			}
+			return WifiConfigParse.readOreoFile(buffer);
+		}
+		return result;
+	}
+
+
+	private ArrayList<WifiCustomInfo> readFile() {
+
+		Logger.d(TAG, "<26");
+		boolean mRootAccess = RootCheck.canRunRootCommands();
+		ArrayList<WifiCustomInfo> listWifi = new ArrayList<>();
 		try {
-
-			if (false) {
-
-				Process suProcess = Runtime.getRuntime().exec("su -c /system/bin/cat " + mPath + mFileName);
-				try {
-					suProcess.waitFor();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+			String configFileName = "";
+			for (String testFile : mLocationList) {
+				if (RootShell.exists(testFile)) {
+					configFileName = testFile;
+					break;
 				}
+			}
+			if (configFileName.length() > 0) {
+				String title = "";
+				String password = "";
+				boolean processingEntry = false;
+				ArrayList<String> fileLines = executeForResult("su -c /system/bin/cat " + configFileName);
+				for (String line : fileLines) {
+					if (processingEntry) {
+						if (line.contains(ENTRY_END)) {
+							// Finished with this entry now - clean up the data and add it to the list.
+							if (password.equals("")) {
+								password = NO_PASSWORD_TEXT;
+							}
 
-				bufferedReader = new BufferedReader(new InputStreamReader(suProcess.getInputStream()));
-				String testString = bufferedReader.readLine();
-
-				if (testString == null) {
-					//Show Error Dialog
-					Logger.d(TAG, "testString is empty");
-					return new ArrayList<>();
-				}
-
-			} else {
-
-				//Check for file in all known locations
-				for (int i = 0; i < mLocationList.length; i++) {
-
-					Process suProcess = Runtime.getRuntime().exec("su -c /system/bin/cat " + mLocationList[i]);
-					try {
-						suProcess.waitFor();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-
-					bufferedReader = new BufferedReader(new InputStreamReader(suProcess.getInputStream()));
-					String testString = bufferedReader.readLine();
-
-					if (testString != null) {
-						Logger.d(TAG, "testString="+testString);
-						break;
-
-					} else if (i == mLocationList.length - 1) {
-						//Show Error Dialog
-
-						//if (mRootAccess) {
-						if (RootCheck.canRunRootCommands()) {
-							Logger.d(TAG, "有 root 权限");
+							WifiCustomInfo current = new WifiCustomInfo(title, password);
+							listWifi.add(current);
+							// clear the current entry variables.
+							title = "";
+							password = "";
+							processingEntry = false;
 						} else {
-							Logger.d(TAG, "没有 root 权限");
+							// still processing the current entry; check for valid data.
+							if (line.contains(SSID) && !line.contains(BSSID)) {
+								title = line.replace(SSID, "").replace("=", "").replace("\"", "").replace(" ", "");
+							}
+							if (password.length() == 0) {
+								if (line.contains(WPA_PSK)) {
+									password = line.replace(WPA_PSK, "").replace("=", "").replace("\"", "").replace(" ", "");
+								} else if (line.contains(WEP_PSK)) {
+									password = line.replace(WEP_PSK, "").replace("=", "").replace("\"", "").replace(" ", "");
+								}
+							}
 						}
-						return new ArrayList<>();
+					} else {
+						processingEntry = line.contains(ENTRY_START);
 					}
 				}
+
+			} else if (mRootAccess) {
+
+				Logger.d(TAG, "cccc");
 			}
 
-			Logger.d(TAG, bufferedReader);
-			if (bufferedReader == null) {
-				return new ArrayList<>();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listWifi;
+	}
+
+	private static ArrayList<String> executeForResult(String cmd) {
+		final ArrayList<String> results = new ArrayList<>();
+		Command command = new Command(3, false, cmd) {
+			@Override
+			public void commandOutput(int id, String line) {
+				results.add(line);
+				Log.d("CTLOG",line);
+				super.commandOutput(id, line);
 			}
-
-
-
-			StringBuffer buffer = new StringBuffer();
-			String line1 = " ";
-			while ((line1 = bufferedReader.readLine()) != null){
-				buffer.append(line1);
-			}
-
-			Logger.d(TAG, buffer);
-
-			String line;
-			String title = "";
-			String password = "";
-
-			while ((line = bufferedReader.readLine()) != null) {
-				if (line.contains(ENTRY_START)) {
-
-					while (!line.contains(ENTRY_END)) {
-						line = bufferedReader.readLine();
-
-						if (line.contains(SSID)) {
-							title = line.replace(SSID, "").replace("=", "").replace("\"", "").replace(" ", "");
-						}
-
-						if (line.contains(WPA_PSK)) {
-
-							password = line.replace(WPA_PSK, "").replace("=", "").replace("\"", "").replace(" ", "");
-
-						} else if (line.contains(WEP_PSK)) {
-
-							password = line.replace(WEP_PSK, "").replace("=", "").replace("\"", "").replace(" ", "");
-						}
-
-					}
-
-
-					if (password.equals("")) {
-						password = NO_PASSWORD_TEXT;
-					}
-
-					WifiEntry current = new WifiEntry(title, password);
-					Logger.d(TAG, current);
-					listWifi.add(current);
-
-					title = "";
-					password = "";
-				}
-			}
-
-
-		} catch (IOException e) {
+		};
+		try {
+			RootShell.getShell(true).add(command);
+			commandWait(RootShell.getShell(true), command);
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-
-		return listWifi;
+		return results;
 	}
+
 }
 
 

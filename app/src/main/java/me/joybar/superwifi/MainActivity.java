@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.joybar.library.common.log.Logger;
 import com.joybar.library.tracker.TrackerUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.joybar.superwifi.application.MyApplication;
@@ -66,7 +67,13 @@ public class MainActivity extends AppCompatActivity {
 
         Logger.d(TAG,wifiStrength);
 
-       new WifiPasswordManager().readFile();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<WifiCustomInfo> list = new WifiPasswordManager().readWifiConfigFile();
+                Logger.d(TAG,list);
+            }
+        }).start();
     }
 
     /**
