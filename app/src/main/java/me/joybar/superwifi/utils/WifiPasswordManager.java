@@ -2,7 +2,7 @@ package me.joybar.superwifi.utils;
 
 import android.util.Log;
 
-import com.joybar.library.common.log.Logger;
+import com.joybar.library.common.log.L;
 import com.stericson.RootShell.RootShell;
 import com.stericson.RootShell.execution.Command;
 
@@ -40,7 +40,7 @@ public class WifiPasswordManager {
 
 	public ArrayList<WifiCustomInfo> readWifiConfigFile() {
 
-		Logger.d(TAG, "readWifiConfigFile");
+		L.d(TAG, "readWifiConfigFile");
 		if (android.os.Build.VERSION.SDK_INT >= 26) {
 			return readOreoFiles();
 		} else {
@@ -55,7 +55,7 @@ public class WifiPasswordManager {
 			//cancel(true);
 			return null;
 		} else {
-			Logger.d(TAG, ">26");
+			L.d(TAG, ">26");
 			for (String oreoLocation : mOreoLocationList) {
 				ArrayList<WifiCustomInfo> currentFile = readOreoFile(oreoLocation);
 				if ((currentFile != null) && (!currentFile.isEmpty())) {
@@ -71,10 +71,10 @@ public class WifiPasswordManager {
 	private ArrayList<WifiCustomInfo> readOreoFile(String configLocation) {
 		ArrayList<WifiCustomInfo> result = new ArrayList<>();
 		if (RootShell.exists(configLocation)) {
-			Logger.d(TAG, "RootShell.exists(configLocation)");
+			L.d(TAG, "RootShell.exists(configLocation)");
 			ArrayList<String> fileLines = executeForResult("su -c /system/bin/cat " + configLocation);
 			if (fileLines == null) {
-				Logger.d(TAG, "fileLines is null");
+				L.d(TAG, "fileLines is null");
 				return result;
 			}
 			StringBuilder buffer = new StringBuilder();
@@ -89,7 +89,7 @@ public class WifiPasswordManager {
 
 	private ArrayList<WifiCustomInfo> readFile() {
 
-		Logger.d(TAG, "<26");
+		L.d(TAG, "<26");
 		boolean mRootAccess = RootCheck.canRunRootCommands();
 		ArrayList<WifiCustomInfo> listWifi = new ArrayList<>();
 		try {
@@ -139,7 +139,7 @@ public class WifiPasswordManager {
 
 			} else if (mRootAccess) {
 
-				Logger.d(TAG, "cccc");
+				L.d(TAG, "cccc");
 			}
 
 		} catch (Exception e) {

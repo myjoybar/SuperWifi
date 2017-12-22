@@ -5,8 +5,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.joybar.library.common.log.L;
 import com.joybar.library.common.log.LogLevel;
-import com.joybar.library.common.log.Logger;
 import com.joybar.library.tracker.TrackerConfig;
 import com.joybar.library.tracker.TrackerUtil;
 
@@ -54,9 +54,9 @@ public class MyApplication extends Application {
 
     private void initLog() {
         if (!BuildConfig.IS_DEBUG_TYPE) {
-            Logger.setLogEnable(false);
+            L.setLogEnable(false);
         }
-        Logger.setLogLevel(LogLevel.TYPE_VERBOSE);
+        L.setLogLevel(LogLevel.TYPE_VERBOSE);
     }
 
     private void initFabric() {

@@ -6,16 +6,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.joybar.library.common.log.Logger;
+import com.joybar.library.common.log.L;
 import com.joybar.library.tracker.TrackerUtil;
 
-import java.util.ArrayList;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import me.joybar.superwifi.application.MyApplication;
 import me.joybar.superwifi.data.WifiCustomInfo;
-import me.joybar.superwifi.utils.WifiPasswordManager;
 import me.joybar.superwifi.utils.WifiUtil;
+import me.joybar.superwifi.wifiNew.PullParser;
+import me.joybar.superwifi.wifiNew.Root;
+import me.joybar.superwifi.wifiNew.WIfi2;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,14 +48,14 @@ public class MainActivity extends AppCompatActivity {
         TrackerUtil.sentEvent("PAGE","enter page MainActivity555");
        // forceCrash();
         Log.i(TAG,"AAAA");
-        Logger.d(TAG,"AAAA");
+        L.d(TAG,"AAAA");
 
         List<ScanResult> WifiScanResults = WifiUtil.getWifiScanResults(MyApplication.getInstance().getApplicationContext());
         List<WifiCustomInfo> listWifiInfo = WifiUtil.getWifiInfoList(MyApplication.getInstance().getApplicationContext());
-        Logger.d(TAG,listWifiInfo);
+        L.d(TAG,listWifiInfo);
 
         WifiCustomInfo wifiCustomInfo = WifiUtil.getConnectedWifiInfo(MyApplication.getInstance().getApplicationContext());
-        Logger.d(TAG,wifiCustomInfo);
+        L.d(TAG,wifiCustomInfo);
 
         int wifi = wifiCustomInfo.getRssi();//获取wifi信号强度
         String wifiStrength  ="";
@@ -65,15 +69,51 @@ public class MainActivity extends AppCompatActivity {
             wifiStrength = "微弱";
         }
 
-        Logger.d(TAG,wifiStrength);
+        L.d(TAG,"wifiStrength="+wifiStrength);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ArrayList<WifiCustomInfo> list = new WifiPasswordManager().readWifiConfigFile();
-                Logger.d(TAG,list);
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                ArrayList<WifiCustomInfo> list = new WifiPasswordManager().readWifiConfigFile();
+//                L.d(TAG,list);
+//            }
+//        }).start();
+
+
+        boolean flag_root = Root.isRoot();
+        L.d("TAG", "check");
+        L.d(TAG,"flag_root="+flag_root);
+
+
+       if(flag_root){
+           String wiFiConfigStr = WIfi2.getWifiConfigFileString(WIfi2.CAT+WIfi2.oreoFilePath[0]);
+          // L.d("TAG", "wiFiConfigStr="+wiFiConfigStr);
+           WIfi2.saveWifiConfigToFile(wiFiConfigStr);
+
+           InputStream inputStream = String2InputStream(wiFiConfigStr);
+           try {
+               L.d(TAG,"start");
+               PullParser.pull2xml(inputStream);
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+       }else{
+           L.d(TAG,"没有root");
+       }
+
+
+
+    }
+
+
+    public static InputStream String2InputStream(String str) {
+        ByteArrayInputStream stream = null;
+        try {
+            stream = new ByteArrayInputStream(str.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return stream;
     }
 
     /**
