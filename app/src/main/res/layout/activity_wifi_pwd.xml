@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="me.joybar.superwifi.MainActivity">
+    tools:context="me.joybar.superwifi.WifiPasswordActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,18 +17,24 @@
         app:theme="@style/Toolbar" />
 
 
-    <FrameLayout android:id="@+id/fl_container"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="activity.QuizSelectionActivity"
-        tools:ignore="MergeRootFrame">
+        android:layout_height="match_parent">
 
-        <ProgressBar android:id="@+id/progress"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_gravity="center"
-            android:indeterminateOnly="true" />
+        <TextView
+            android:id="@+id/wifi_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="AAAA"
+            android:layout_gravity="bottom"
+            android:textAppearance="@style/TextAppearance.WifiItem"
+            tools:transitionName="AAAAA"
+            android:padding="16dp"
+            tools:targetApi="lollipop"/>
 
-    </FrameLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+
 
 </android.support.design.widget.CoordinatorLayout>

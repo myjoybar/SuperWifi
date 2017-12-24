@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SuperWifi.iml" filepath="$PROJECT_DIR$/SuperWifi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SuperWifiManager.iml" filepath="$PROJECT_DIR$/SuperWifiManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

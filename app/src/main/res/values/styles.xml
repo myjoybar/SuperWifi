@@ -1,11 +1,106 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <!-- Exists for inheritance purposes -->
+    <style name="AppTheme" parent="Base.AppTheme" />
+
+    <style name="Base.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--导航栏底色-->
         <item name="colorPrimary">@color/colorPrimary</item>
+        <!--状态栏底色-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--按钮选中或者点击获得焦点后的颜色-->
         <item name="colorAccent">@color/colorAccent</item>
+
+
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColorPrimaryInverse">@color/text_light</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/colorPrimaryDark
+        </item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:radioButtonStyle">@style/CompoundButton.Radio</item>
+        <item name="android:buttonStyle">@style/CompoundButton</item>
+        <item name="android:windowBackground">@color/light_grey</item>
+        <item name="android:colorBackground">@color/light_grey</item>
     </style>
+
+    <!--Toolbar-->
+
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="CompoundButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/selector_button</item>
+        <item name="android:button">@null</item>
+    </style>
+
+
+    <style name="CompoundButton.Radio" parent="CompoundButton">
+        <item name="android:background">@drawable/selector_checkable</item>
+    </style>
+
+
+    <!--textView-->
+    <style name="TextAppearance.WifiItem" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <!--itemTheme-->
+    <style name="Blue">
+        <item name="colorPrimary">@color/theme_blue_primary</item>
+        <item name="colorPrimaryDark">@color/theme_blue_primary</item>
+        <item name="android:textColorPrimary">@color/theme_blue_text</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_blue_primary_dark
+        </item>
+        <item name="android:windowBackground">@color/theme_blue_background</item>
+        <item name="colorAccent">@color/theme_blue_accent</item>
+    </style>
+
+
+    <style name="Green">
+        <item name="colorPrimary">@color/theme_green_primary</item>
+        <item name="colorPrimaryDark">@color/theme_green_primary</item>
+        <item name="android:textColorPrimary">@color/theme_green_text</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_green_primary_dark
+        </item>
+        <item name="android:windowBackground">@color/theme_green_background</item>
+        <item name="colorAccent">@color/theme_green_accent</item>
+    </style>
+
+    <style name="Purple">
+        <item name="colorPrimary">@color/theme_purple_primary</item>
+        <item name="colorPrimaryDark">@color/theme_purple_primary</item>
+        <item name="android:textColorPrimary">@color/theme_purple_text</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_purple_primary_dark
+        </item>
+        <item name="android:windowBackground">@color/theme_purple_background</item>
+        <item name="colorAccent">@color/theme_purple_accent</item>
+    </style>
+
+    <style name="Red">
+        <item name="colorPrimary">@color/theme_red_primary</item>
+        <item name="colorPrimaryDark">@color/theme_red_primary</item>
+        <item name="android:textColorPrimary">@color/theme_red_text</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_red_primary_dark
+        </item>
+        <item name="android:windowBackground">@color/theme_red_background</item>
+        <item name="colorAccent">@color/theme_red_accent</item>
+    </style>
+
+    <style name="Yellow">
+        <item name="colorPrimary">@color/theme_yellow_primary</item>
+        <item name="colorPrimaryDark">@color/theme_yellow_primary</item>
+        <item name="android:textColorPrimary">@color/theme_yellow_text</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_yellow_primary_dark
+        </item>
+        <item name="android:windowBackground">@color/theme_yellow_background</item>
+        <item name="colorAccent">@color/theme_yellow_accent</item>
+    </style>
+
 
 </resources>

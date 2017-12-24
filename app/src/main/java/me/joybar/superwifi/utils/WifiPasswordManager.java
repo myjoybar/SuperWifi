@@ -1,7 +1,5 @@
 package me.joybar.superwifi.utils;
 
-import android.util.Log;
-
 import com.joybar.library.common.log.L;
 import com.stericson.RootShell.RootShell;
 import com.stericson.RootShell.execution.Command;
@@ -55,7 +53,6 @@ public class WifiPasswordManager {
 			//cancel(true);
 			return null;
 		} else {
-			L.d(TAG, ">26");
 			for (String oreoLocation : mOreoLocationList) {
 				ArrayList<WifiCustomInfo> currentFile = readOreoFile(oreoLocation);
 				if ((currentFile != null) && (!currentFile.isEmpty())) {
@@ -91,6 +88,9 @@ public class WifiPasswordManager {
 
 		L.d(TAG, "<26");
 		boolean mRootAccess = RootCheck.canRunRootCommands();
+		if (!mRootAccess) {
+			return null;
+		}
 		ArrayList<WifiCustomInfo> listWifi = new ArrayList<>();
 		try {
 			String configFileName = "";
@@ -137,9 +137,6 @@ public class WifiPasswordManager {
 					}
 				}
 
-			} else if (mRootAccess) {
-
-				L.d(TAG, "cccc");
 			}
 
 		} catch (Exception e) {
@@ -154,7 +151,6 @@ public class WifiPasswordManager {
 			@Override
 			public void commandOutput(int id, String line) {
 				results.add(line);
-				Log.d("CTLOG",line);
 				super.commandOutput(id, line);
 			}
 		};

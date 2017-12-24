@@ -18,7 +18,6 @@ public class RootCheck {
     public static boolean canRunRootCommands() {
         boolean retval = false;
         Process suProcess;
-
         try {
             suProcess = Runtime.getRuntime().exec("su");
 

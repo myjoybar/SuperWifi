@@ -18,13 +18,14 @@
             </intent-filter>
         </activity>
 
-        <!-- GA start-->
-        <service
-            android:name="com.google.android.gms.analytics.AnalyticsService"
-            android:enabled="true"
-            android:exported="false" />
 
-        <!-- GA end-->
+
+        <activity
+            android:name=".WifiPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
 
         <!-- Fabric start-->

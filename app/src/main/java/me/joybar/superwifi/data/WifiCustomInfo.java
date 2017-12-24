@@ -7,6 +7,8 @@ import android.os.Parcelable;
 public class WifiCustomInfo implements Parcelable {
 
 
+    public static final String TAG = "WifiCustomInfo";
+
     private String SSIDName;
     private String configKeyPwd;
 
@@ -21,6 +23,8 @@ public class WifiCustomInfo implements Parcelable {
     private int rssi;
 
 
+    private  Theme mTheme = Theme.topeka;
+
     public WifiCustomInfo() {}
 
     public WifiCustomInfo(String SSIDName, String configKeyPwd) {
@@ -29,7 +33,7 @@ public class WifiCustomInfo implements Parcelable {
     }
 
     public String getSSIDName() {
-        return SSIDName;
+        return SSIDName.trim();
     }
 
     public void setSSIDName(String SSIDName) {
@@ -37,7 +41,7 @@ public class WifiCustomInfo implements Parcelable {
     }
 
     public String getConfigKeyPwd() {
-        return configKeyPwd;
+        return configKeyPwd.trim();
     }
 
     public void setConfigKeyPwd(String configKeyPwd) {
@@ -108,6 +112,14 @@ public class WifiCustomInfo implements Parcelable {
         this.rssi = rssi;
     }
 
+    public Theme getTheme() {
+        return mTheme;
+    }
+
+    public void setTheme(Theme mTheme) {
+        this.mTheme = mTheme;
+    }
+
     @Override
     public String toString() {
         return "WifiEntry{" + "SSIDName='" + SSIDName + '\'' + ", configKeyPwd='" + configKeyPwd + '\'' + ", enable=" + enable + ", BSSID='" +
@@ -134,6 +146,8 @@ public class WifiCustomInfo implements Parcelable {
         enable = in.readByte()!=0;
         BSSID = in.readString();
         SSID = in.readString();
+
+       // mTheme = Theme.values()[in.readInt()];
 
         ipAddress = in.readString();
         networkID = in.readInt();
@@ -162,6 +176,8 @@ public class WifiCustomInfo implements Parcelable {
         dest.writeInt(linkSpeed);
         dest.writeInt(level);
         dest.writeInt(rssi);
+
+      //  dest.writeInt(mTheme.ordinal());
 
     }
 }
