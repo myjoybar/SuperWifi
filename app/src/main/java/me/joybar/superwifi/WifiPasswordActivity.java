@@ -44,6 +44,38 @@ public class WifiPasswordActivity extends BaseActivity {
         TrackerUtil.sentEvent("PAGE","enter page MainActivity");
         WifiCustomInfo wifiCustomInfo = getIntent().getParcelableExtra(WifiCustomInfo.TAG);
         name.setText(wifiCustomInfo.getSSIDName());
+
+//        int categoryNameTextSize = 40;
+//        int paddingStart =40;
+//        final int startDelay = 350;
+//        ActivityCompat.setEnterSharedElementCallback(this,
+//                new TextSharedElementCallback(categoryNameTextSize, paddingStart) {
+//                    @Override
+//                    public void onSharedElementStart(List<String> sharedElementNames,
+//                                                     List<View> sharedElements,
+//                                                     List<View> sharedElementSnapshots) {
+//                        super.onSharedElementStart(sharedElementNames,
+//                                sharedElements,
+//                                sharedElementSnapshots);
+//                        mToolbarBack.setScaleX(0f);
+//                        mToolbarBack.setScaleY(0f);
+//                    }
+//
+//                    @Override
+//                    public void onSharedElementEnd(List<String> sharedElementNames,
+//                                                   List<View> sharedElements,
+//                                                   List<View> sharedElementSnapshots) {
+//                        super.onSharedElementEnd(sharedElementNames,
+//                                sharedElements,
+//                                sharedElementSnapshots);
+//                        // Make sure to perform this animation after the transition has ended.
+//                        ViewCompat.animate(mToolbarBack)
+//                                .setStartDelay(startDelay)
+//                                .scaleX(1f)
+//                                .scaleY(1f)
+//                                .alpha(1f);
+//                    }
+//                });
     }
 
 

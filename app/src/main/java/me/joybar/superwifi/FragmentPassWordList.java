@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.joybar.library.common.log.L;
@@ -123,7 +124,15 @@ public class FragmentPassWordList extends Fragment {
 
             }
         });
-
+        recyclerView.getViewTreeObserver()
+                .addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw() {
+                        recyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                        getActivity().supportStartPostponedEnterTransition();
+                        return true;
+                    }
+                });
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

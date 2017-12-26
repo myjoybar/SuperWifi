@@ -30,6 +30,7 @@ public class MainActivity extends BaseActivity {
         TrackerUtil.sendScreenName(TAG);
         TrackerUtil.sentEvent("PAGE","enter page MainActivity");
         initFragment();
+        supportPostponeEnterTransition();
 
     }
 
