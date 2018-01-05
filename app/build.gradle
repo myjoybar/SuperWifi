@@ -1,16 +1,13 @@
 apply plugin: 'com.android.application'
-
 // fabric
 apply plugin: 'io.fabric'
-
-
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
-
 // butterknife
 apply plugin: 'com.jakewharton.butterknife'
-
+//use greendao
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion  rootProject.ext.android.compileSdkVersion
@@ -64,11 +61,26 @@ android {
             path "CMakeLists.txt"
         }
     }
+
+    greendao {
+        schemaVersion 1
+        daoPackage 'me.joybar.superwifi.greendao.gen'
+        targetGenDir 'src/main/java'
+    }
     repositories {
         flatDir {
             dirs 'libs'   // aar目录
         }
     }
+
+    //greendao config
+    greendao {
+        //versionCode，update
+        schemaVersion 1
+        daoPackage 'me.joybar.superwifi.data.db.greendao.gen'
+        targetGenDir 'src/main/java'
+    }
+
 }
 
 dependencies {
@@ -82,7 +94,7 @@ dependencies {
     //rootshell
     compile(name: 'RootShell-1.6-release', ext: 'aar')
     // utils lib
-    compile 'com.joybar.libutils:library:1.1.6'
+    compile 'com.joybar.libutils:library:1.1.8'
 
     // fabric
     compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
@@ -91,4 +103,7 @@ dependencies {
     // butterknife
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    //greendao
+    compile 'org.greenrobot:greendao:3.2.2'
 }

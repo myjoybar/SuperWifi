@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.joybar.superwifi.utils;
+package me.joybar.superwifi.utils.anni;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;

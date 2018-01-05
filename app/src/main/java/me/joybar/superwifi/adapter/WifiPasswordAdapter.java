@@ -8,7 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -17,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.joybar.superwifi.R;
 import me.joybar.superwifi.R2;
+import me.joybar.superwifi.data.ColorSelector;
 import me.joybar.superwifi.data.WifiCustomInfo;
 
 /**
@@ -59,12 +59,11 @@ public class WifiPasswordAdapter extends RecyclerView.Adapter<WifiPasswordAdapte
     @Override
     public void onBindViewHolder(WifiPasswordViewHolder holder, int position) {
         WifiCustomInfo wifiCustomInfo = mList.get(position);
-        holder.itemView.setBackgroundColor(getColor(holder.itemView.getContext(),wifiCustomInfo.getTheme().getWindowBackgroundColor()));
-        holder.textView.setTextColor(getColor(holder.textView.getContext(),wifiCustomInfo.getTheme().getTextPrimaryColor()));
-        holder.textView.setBackgroundColor(getColor(holder.textView.getContext(),wifiCustomInfo.getTheme().getPrimaryColor()));
-        holder.textView.setText(wifiCustomInfo.getSSIDName());
-        holder.textView.setTransitionName(wifiCustomInfo.getSSIDName());
-        holder.imageView.setImageResource(R.mipmap.ic_launcher);
+        holder.itemView.setBackgroundColor(getColor(holder.itemView.getContext(), ColorSelector.getRandomBgSortedColorID()));
+        holder.tvWifiTitle.setTextColor(getColor(holder.tvWifiTitle.getContext(), ColorSelector.getRandomTvSortedColorID()));
+        holder.tvWifiTitle.setBackgroundColor(getColor(holder.tvWifiTitle.getContext(), ColorSelector.getRandomTvBgSortedColorID()));
+        holder.tvWifiTitle.setText(wifiCustomInfo.getSSIDName());
+        holder.tvWifiTitle.setTransitionName(wifiCustomInfo.getSSIDName());
     }
 
     @Override
@@ -72,20 +71,16 @@ public class WifiPasswordAdapter extends RecyclerView.Adapter<WifiPasswordAdapte
         return mList.size();
     }
 
-
     public  static class WifiPasswordViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R2.id.wifi_icon)
-        public ImageView imageView;
+//        @BindView(R2.id.view_bg)
+//        public View viewBg;
 
         @BindView(R2.id.wifi_title)
-        public TextView textView;
+        public TextView tvWifiTitle;
 
-//        @BindView(R2.id.wifi_item)
-//        public View itemView;
         public WifiPasswordViewHolder(View itemView) {
             super(itemView);
-            //ButterKnife.bind(itemView);
             ButterKnife.bind(this, itemView);
         }
     }

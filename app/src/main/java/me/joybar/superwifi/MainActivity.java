@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.joybar.library.common.log.L;
-import com.joybar.library.tracker.TrackerUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +26,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolbar((Toolbar) findViewById(R.id.toolbar),false);
-        TrackerUtil.sendScreenName(TAG);
-        TrackerUtil.sentEvent("PAGE","enter page MainActivity");
         initFragment();
-        supportPostponeEnterTransition();
-
+      //  supportPostponeEnterTransition();
     }
-
 
 
     private void initFragment(){

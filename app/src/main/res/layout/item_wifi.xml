@@ -1,43 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2015 Google Inc.
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~      http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
+  Copyright (C) 2017 The Android Open Source Project
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
   -->
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 xmlns:tools="http://schemas.android.com/tools"
-                 android:id="@+id/wifi_item"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:foreground="@drawable/selector_subtle"
-                 tools:ignore="UseCompoundDrawables">
-
-        <ImageView
-                android:id="@+id/wifi_icon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
-                />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:padding="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        >
 
         <TextView
-                android:id="@+id/wifi_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="AAAA"
-                android:layout_gravity="bottom"
-                android:textAppearance="@style/TextAppearance.WifiItem"
-                tools:transitionName="AAAAA"
-                android:padding="16dp"
-                tools:targetApi="lollipop"/>
-
+            android:id="@+id/tv_wifi"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:background="#CCC"
+            android:paddingBottom="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="10dp"
+            android:layout_gravity="center"
+            android:text=" "
+            android:textAppearance="@style/TextAppearance.WifiItem"
+            android:textSize="22sp"
+            tools:targetApi="lollipop"
+            tools:transitionName="password"/>
     </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/wifi_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textAppearance="@style/TextAppearance.WifiItem"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:targetApi="lollipop"
+        tools:text="wifi"
+        tools:transitionName="wifi"
+        android:singleLine="true"
+        android:ellipsize="end"  />
+
+</android.support.constraint.ConstraintLayout>

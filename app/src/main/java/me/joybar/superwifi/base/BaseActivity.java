@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import butterknife.ButterKnife;
+import com.joybar.library.tracker.TrackerUtil;
 
 /**
  * Created by joybar on 4/19/16.
@@ -18,8 +18,9 @@ public class BaseActivity extends ToolbarActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TAG = getClass().getSimpleName();
-        mContext = this;
-
+        mContext = this.getApplicationContext();
+        TrackerUtil.sendScreenName(TAG);
+        TrackerUtil.sentEvent("PAGE", TAG);
 
     }
 

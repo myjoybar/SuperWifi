@@ -7,6 +7,7 @@ import com.stericson.RootShell.execution.Command;
 import java.util.ArrayList;
 
 import me.joybar.superwifi.data.WifiCustomInfo;
+import me.joybar.superwifi.utils.root.RootCheck;
 
 import static com.stericson.RootShell.RootShell.commandWait;
 
@@ -34,11 +35,10 @@ public class WifiPasswordManager {
 	final String WEP_PSK = "wep_key0";
 	final String ENTRY_START = "network={";
 	final String ENTRY_END = "}";
-	final String NO_PASSWORD_TEXT = "no password";
+	public  final String NO_PASSWORD_TEXT = "no password";
 
 	public ArrayList<WifiCustomInfo> readWifiConfigFile() {
 
-		L.d(TAG, "readWifiConfigFile");
 		if (android.os.Build.VERSION.SDK_INT >= 26) {
 			return readOreoFiles();
 		} else {

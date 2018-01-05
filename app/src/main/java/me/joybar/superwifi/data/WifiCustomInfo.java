@@ -3,11 +3,18 @@ package me.joybar.superwifi.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
 
+@Entity
 public class WifiCustomInfo implements Parcelable {
 
-
     public static final String TAG = "WifiCustomInfo";
+
+    @Id(autoincrement = true)
+    private Long id;
+
 
     private String SSIDName;
     private String configKeyPwd;
@@ -23,7 +30,6 @@ public class WifiCustomInfo implements Parcelable {
     private int rssi;
 
 
-    private  Theme mTheme = Theme.topeka;
 
     public WifiCustomInfo() {}
 
@@ -112,13 +118,7 @@ public class WifiCustomInfo implements Parcelable {
         this.rssi = rssi;
     }
 
-    public Theme getTheme() {
-        return mTheme;
-    }
 
-    public void setTheme(Theme mTheme) {
-        this.mTheme = mTheme;
-    }
 
     @Override
     public String toString() {
@@ -156,6 +156,22 @@ public class WifiCustomInfo implements Parcelable {
         rssi = in.readInt();
     }
 
+    @Generated(hash = 195998550)
+    public WifiCustomInfo(Long id, String SSIDName, String configKeyPwd, boolean enable, String BSSID, String SSID, String ipAddress,
+            int networkID, int linkSpeed, int level, int rssi) {
+        this.id = id;
+        this.SSIDName = SSIDName;
+        this.configKeyPwd = configKeyPwd;
+        this.enable = enable;
+        this.BSSID = BSSID;
+        this.SSID = SSID;
+        this.ipAddress = ipAddress;
+        this.networkID = networkID;
+        this.linkSpeed = linkSpeed;
+        this.level = level;
+        this.rssi = rssi;
+    }
+
 
     @Override
     public int describeContents() {
@@ -179,5 +195,17 @@ public class WifiCustomInfo implements Parcelable {
 
       //  dest.writeInt(mTheme.ordinal());
 
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean getEnable() {
+        return this.enable;
     }
 }

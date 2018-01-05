@@ -1,4 +1,4 @@
-package me.joybar.superwifi.utils;
+package me.joybar.superwifi.utils.root;
 
 import android.util.Log;
 

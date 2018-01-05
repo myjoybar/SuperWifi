@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.joybar.superwifi.utils;
+package me.joybar.superwifi.utils.anni;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

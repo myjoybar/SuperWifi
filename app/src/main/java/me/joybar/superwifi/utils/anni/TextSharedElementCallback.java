@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.joybar.superwifi;
+package me.joybar.superwifi.utils.anni;
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -26,8 +26,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
-
-import me.joybar.superwifi.utils.ViewUtils;
 
 /**
  * This callback allows a shared TextView to resize text and start padding during transition.
