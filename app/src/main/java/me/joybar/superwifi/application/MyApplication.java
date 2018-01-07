@@ -10,6 +10,8 @@ import com.joybar.library.common.log.LogLevel;
 import com.joybar.library.tracker.TrackerConfig;
 import com.joybar.library.tracker.TrackerUtil;
 
+import java.util.logging.Handler;
+
 import io.fabric.sdk.android.Fabric;
 import me.joybar.superwifi.BuildConfig;
 import me.joybar.superwifi.config.SDKConfig;

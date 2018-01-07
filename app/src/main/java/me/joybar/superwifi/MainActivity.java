@@ -31,6 +31,10 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    private void checkUpdate(){
+
+    }
+
     private void initFragment(){
         FragmentPassWordList fragment =
                 (FragmentPassWordList) getSupportFragmentManager().findFragmentById(R.id.fl_container);
