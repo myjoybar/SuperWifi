@@ -7,10 +7,9 @@ import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.joybar.library.common.log.L;
 import com.joybar.library.common.log.LogLevel;
+import com.joybar.library.net.retrofit.config.RetrofitConfig;
 import com.joybar.library.tracker.TrackerConfig;
 import com.joybar.library.tracker.TrackerUtil;
-
-import java.util.logging.Handler;
 
 import io.fabric.sdk.android.Fabric;
 import me.joybar.superwifi.BuildConfig;
@@ -42,6 +41,7 @@ public class MyApplication extends Application {
         intiTracker();
         initLog();
         initFabric();
+        initRetrofit();
     }
 
     private void intiTracker() {
@@ -63,6 +63,12 @@ public class MyApplication extends Application {
 
     private void initFabric() {
         Fabric.with(this, new Crashlytics());
+
+    }
+
+    private void initRetrofit(){
+        //RetrofitConfig.setBaseUrl("http://106.14.139.72:8198/superwifi/");
+        RetrofitConfig.setBaseUrl("https://www.baidu.com/");
 
     }
 
