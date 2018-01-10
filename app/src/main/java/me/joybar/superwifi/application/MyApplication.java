@@ -21,55 +21,54 @@ import me.joybar.superwifi.config.SDKConfig;
 
 public class MyApplication extends Application {
 
-    private static MyApplication INSTANCE = null;
-    private static final String TAG = "MyApplication";
+	private static MyApplication INSTANCE = null;
+	private static final String TAG = "MyApplication";
+	public static MyApplication getInstance() {
+		Log.d(TAG, "get application");
+		return INSTANCE;
+	}
 
-    public static MyApplication getInstance() {
-        Log.d(TAG, "get application");
-        return INSTANCE;
-    }
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+		INSTANCE = this;
+	}
 
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        INSTANCE = this;
-    }
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		intiTracker();
+		initLog();
+		initFabric();
+		initRetrofit();
+	}
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        intiTracker();
-        initLog();
-        initFabric();
-        initRetrofit();
-    }
+	private void intiTracker() {
+		if (BuildConfig.IS_DEBUG_TYPE) {
+			TrackerUtil.createTracker(TrackerConfig.TYPE_GOOGLE, this, SDKConfig.GA_DEBUG_TRACK_ID);
+		} else {
+			TrackerUtil.createTracker(TrackerConfig.TYPE_GOOGLE, this, SDKConfig.GA_RELEASE_TRACK_ID);
+		}
+	}
 
-    private void intiTracker() {
-        if (BuildConfig.IS_DEBUG_TYPE) {
-            TrackerUtil.createTracker(TrackerConfig.TYPE_GOOGLE, this, SDKConfig.GA_DEBUG_TRACK_ID);
-        } else {
-            TrackerUtil.createTracker(TrackerConfig.TYPE_GOOGLE, this, SDKConfig
-                    .GA_RELEASE_TRACK_ID);
+	private void initLog() {
+		if (!BuildConfig.IS_DEBUG_TYPE) {
+			L.setLogEnable(false);
+		}
+		L.setLogLevel(LogLevel.TYPE_VERBOSE);
+	}
 
-        }
-    }
+	private void initFabric() {
+		Fabric.with(this, new Crashlytics());
 
-    private void initLog() {
-        if (!BuildConfig.IS_DEBUG_TYPE) {
-            L.setLogEnable(false);
-        }
-        L.setLogLevel(LogLevel.TYPE_VERBOSE);
-    }
+	}
 
-    private void initFabric() {
-        Fabric.with(this, new Crashlytics());
-
-    }
-
-    private void initRetrofit(){
-        //RetrofitConfig.setBaseUrl("http://106.14.139.72:8198/superwifi/");
-        RetrofitConfig.setBaseUrl("https://www.baidu.com/");
-
-    }
+	private void initRetrofit() {
+		if (BuildConfig.IS_DEBUG_TYPE) {
+			RetrofitConfig.setBaseUrl("http://106.14.139.72:8198/superwifi/");
+		}else{
+			RetrofitConfig.setBaseUrl("http://106.14.139.72:8199/superwifi/");
+		}
+	}
 
 }

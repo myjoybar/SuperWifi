@@ -73,9 +73,6 @@ public class WifiPasswordAdapter extends RecyclerView.Adapter<WifiPasswordAdapte
 
     public  static class WifiPasswordViewHolder extends RecyclerView.ViewHolder {
 
-//        @BindView(R2.id.view_bg)
-//        public View viewBg;
-
         @BindView(R2.id.wifi_title)
         public TextView tvWifiTitle;
 

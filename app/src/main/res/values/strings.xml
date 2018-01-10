@@ -5,4 +5,8 @@
     <string name="copy_success">Copy success</string>
     <string name="no_root_access">No root access</string>
 
+    <string name="menu_feedback">Feedback</string>
+    <string name="menu_about_us">About US</string>
+    <string name="about_hope_help_you">hope to can help you</string>
+
 </resources>

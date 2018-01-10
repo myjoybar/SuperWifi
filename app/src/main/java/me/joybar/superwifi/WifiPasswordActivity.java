@@ -35,7 +35,6 @@ public class WifiPasswordActivity extends BaseActivity {
 	@BindView(R.id.wifi_pwd)
 	TextView tvWifiPwd;
 
-
 	@BindView(R.id.back)
 	ImageButton mToolbarBack;
 

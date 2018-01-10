@@ -5,4 +5,7 @@
     <string name="back">返回</string>
     <string name="copy_success">复制成功</string>
     <string name="no_root_access">没有 root 权限</string>
+    <string name="menu_feedback">反馈</string>
+    <string name="menu_about_us">关于我们</string>
+    <string name="about_hope_help_you">希望能帮到您</string>
 </resources>

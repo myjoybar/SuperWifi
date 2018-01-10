@@ -3,6 +3,7 @@ package service;
 import com.joybar.libupdate.data.UpdateInfo;
 
 import io.reactivex.Observable;
+import me.joybar.superwifi.data.BaseResult;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -13,10 +14,10 @@ import retrofit2.http.GET;
 public interface ApiService {
 
 	@GET("updateinfo/")
-	Observable<UpdateInfo> getUpdateInfo();
+	Observable<BaseResult<UpdateInfo>> getUpdateInfo();
 
 	@GET("updateinfo/")
-	Call<UpdateInfo> getUpdateInfo1();
+	Call<BaseResult<UpdateInfo>> getUpdateInfo1();
 
 	@GET("/")
 	Call<String> getBaidu();
