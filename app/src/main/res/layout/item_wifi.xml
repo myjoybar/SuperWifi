@@ -11,12 +11,18 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<android.support.constraint.ConstraintLayout
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:padding="12dp">
+
+<android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/selector_item_wifi"
     >
 
     <FrameLayout
@@ -31,21 +37,17 @@
         app:layout_constraintVertical_bias="0.1"
         >
 
-        <TextView
-            android:id="@+id/tv_wifi"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:background="#CCC"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingTop="10dp"
             android:layout_gravity="center"
-            android:text=" "
-            android:textAppearance="@style/TextAppearance.WifiItem"
-            android:textSize="22sp"
             tools:targetApi="lollipop"
-            tools:transitionName="password"/>
+            android:src="@drawable/ic_wifi"
+           />
     </FrameLayout>
 
 
@@ -64,8 +66,11 @@
         app:layout_constraintVertical_bias="1.0"
         tools:targetApi="lollipop"
         tools:text="wifi"
+        android:textColor="@color/white"
+        android:background="@drawable/shape_round_item_wifi_name"
         tools:transitionName="wifi"
         android:singleLine="true"
         android:ellipsize="end"  />
 
 </android.support.constraint.ConstraintLayout>
+</FrameLayout>

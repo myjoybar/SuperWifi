@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.view.View;
@@ -19,7 +18,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.joybar.superwifi.base.BaseActivity;
-import me.joybar.superwifi.data.ColorSelector;
 import me.joybar.superwifi.data.WifiCustomInfo;
 import me.joybar.superwifi.utils.anni.TextSharedElementCallback;
 
@@ -64,9 +62,9 @@ public class WifiPasswordActivity extends BaseActivity {
 
 	private void init(WifiCustomInfo wifiCustomInfo) {
 		tvWifiTitle.setText(wifiCustomInfo.getSSIDName());
-		tvWifiTitle.setTextColor(ContextCompat.getColor(this, ColorSelector.getRandomColorID()));
+	//	tvWifiTitle.setTextColor(ContextCompat.getColor(this, ColorSelector.getRandomColorID()));
 		tvWifiPwd.setText(wifiCustomInfo.getConfigKeyPwd());
-		tvWifiPwd.setTextColor(ContextCompat.getColor(this, ColorSelector.PURPLE.getColorId()));
+	//	tvWifiPwd.setTextColor(ContextCompat.getColor(this, ColorSelector.PURPLE.getColorId()));
 
 	}
 

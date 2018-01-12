@@ -2,9 +2,13 @@ package me.joybar.superwifi;
 
 import android.net.wifi.ScanResult;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.joybar.library.common.app.AppMarketUtil;
 import com.joybar.library.common.log.L;
@@ -17,6 +21,8 @@ import com.joybar.libupdate.iml.IConfirmDialog;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -33,12 +39,19 @@ import service.ApiService;
 
 public class MainActivity extends BaseActivity {
 
-	private static final String TAG = "MainActivity";
+
+	@BindView(R.id.progress)
+	ProgressBar progressBar;
+
+	@BindView(R.id.tv_error)
+	TextView tvError;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		ButterKnife.bind(this);
 		initToolbar((Toolbar) findViewById(R.id.toolbar), false);
 		checkUpdate();
 		//initFragment();
@@ -95,6 +108,9 @@ public class MainActivity extends BaseActivity {
 					@Override
 					public void onError(Throwable e) {
 						L.d("onError");
+						progressBar.setVisibility(View.GONE);
+						tvError.setVisibility(View.VISIBLE);
+
 					}
 
 					@Override
@@ -114,10 +130,11 @@ public class MainActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_feedback:
+				Snackbar.make(findViewById(R.id.toolbar),MainActivity.this.getString(R.string.contact_us_with_email), Snackbar.LENGTH_LONG).show();
 				break;
-			case R.id.menu_about_us:
-				AboutUsActivity.launch(mActivity);
-				break;
+//			case R.id.menu_about_us:
+//				AboutUsActivity.launch(mActivity);
+//				break;
 			default:
 				break;
 		}

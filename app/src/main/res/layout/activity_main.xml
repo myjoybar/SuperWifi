@@ -39,6 +39,19 @@
             android:layout_gravity="center"
             android:indeterminateOnly="true"/>
 
+
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:drawablePadding="15dp"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:text="@string/server_is_busy"
+            android:visibility="gone" />
+
     </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

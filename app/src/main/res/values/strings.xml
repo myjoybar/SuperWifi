@@ -9,4 +9,7 @@
     <string name="menu_about_us">About US</string>
     <string name="about_hope_help_you">hope to can help you</string>
 
+    <string name="contact_us_with_email"> If you have any questions, please contact us at support_wifipwd@163.com</string>
+    <string name="server_is_busy">server is busy,please try again later</string>
+
 </resources>

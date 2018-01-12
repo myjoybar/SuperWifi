@@ -50,6 +50,7 @@
                 android:ellipsize="end"
                 android:textSize="22sp"
                 android:transitionName="@string/transition_toolbar"
+                android:textColor="#ffffff"
                 tools:text="wifi"
                 tools:ignore="UnusedAttribute,NewApi,RtlSymmetry,PrivateResource"/>
 
@@ -83,6 +84,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/selector_password"
+        android:textColor="#ffffff"
         android:alpha="0"
         android:scaleX="0.7"
         android:scaleY="0.7"

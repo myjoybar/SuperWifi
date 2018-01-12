@@ -16,7 +16,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.joybar.superwifi.R;
 import me.joybar.superwifi.R2;
-import me.joybar.superwifi.data.ColorSelector;
 import me.joybar.superwifi.data.WifiCustomInfo;
 
 /**
@@ -59,9 +58,9 @@ public class WifiPasswordAdapter extends RecyclerView.Adapter<WifiPasswordAdapte
     @Override
     public void onBindViewHolder(WifiPasswordViewHolder holder, int position) {
         WifiCustomInfo wifiCustomInfo = mList.get(position);
-        holder.itemView.setBackgroundColor(getColor(holder.itemView.getContext(), ColorSelector.getRandomBgSortedColorID()));
-        holder.tvWifiTitle.setTextColor(getColor(holder.tvWifiTitle.getContext(), ColorSelector.getRandomTvSortedColorID()));
-        holder.tvWifiTitle.setBackgroundColor(getColor(holder.tvWifiTitle.getContext(), ColorSelector.getRandomTvBgSortedColorID()));
+//        holder.itemView.setBackgroundColor(getColor(holder.itemView.getContext(), ColorSelector.getRandomBgSortedColorID()));
+//        holder.tvWifiTitle.setTextColor(getColor(holder.tvWifiTitle.getContext(), ColorSelector.getRandomTvSortedColorID()));
+//        holder.tvWifiTitle.setBackgroundColor(getColor(holder.tvWifiTitle.getContext(), ColorSelector.getRandomTvBgSortedColorID()));
         holder.tvWifiTitle.setText(wifiCustomInfo.getSSIDName());
         holder.tvWifiTitle.setTransitionName(wifiCustomInfo.getSSIDName());
     }
