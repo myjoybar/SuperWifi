@@ -46,9 +46,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:drawablePadding="15dp"
-            android:gravity="center_horizontal"
-            android:textSize="18sp"
             android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="18sp"
             android:text="@string/server_is_busy"
             android:visibility="gone" />
 

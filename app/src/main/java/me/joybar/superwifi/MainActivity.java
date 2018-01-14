@@ -14,6 +14,7 @@ import com.joybar.library.common.app.AppMarketUtil;
 import com.joybar.library.common.log.L;
 import com.joybar.library.common.wiget.ToastUtil;
 import com.joybar.library.net.retrofit.RetrofitClient;
+import com.joybar.library.tracker.TrackerUtil;
 import com.joybar.libupdate.UpdateDialog;
 import com.joybar.libupdate.data.UpdateInfo;
 import com.joybar.libupdate.iml.IConfirmDialog;
@@ -31,6 +32,7 @@ import me.joybar.superwifi.application.MyApplication;
 import me.joybar.superwifi.base.BaseActivity;
 import me.joybar.superwifi.data.BaseResult;
 import me.joybar.superwifi.data.WifiCustomInfo;
+import me.joybar.superwifi.ga.GAType;
 import me.joybar.superwifi.utils.ActivityUtils;
 import me.joybar.superwifi.utils.AppUtil;
 import me.joybar.superwifi.utils.WifiPasswordManager;
@@ -131,6 +133,7 @@ public class MainActivity extends BaseActivity {
 		switch (item.getItemId()) {
 			case R.id.menu_feedback:
 				Snackbar.make(findViewById(R.id.toolbar),MainActivity.this.getString(R.string.contact_us_with_email), Snackbar.LENGTH_LONG).show();
+				TrackerUtil.sentEvent(TAG, GAType.CLICK_SUPPORT);
 				break;
 //			case R.id.menu_about_us:
 //				AboutUsActivity.launch(mActivity);
