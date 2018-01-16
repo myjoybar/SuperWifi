@@ -168,27 +168,88 @@
   @com.google.android.gms.common.annotation.KeepName *;
 }
 
+-keep class * extends java.lang.annotation.Annotation { *; }
+-keep interface * extends java.lang.annotation.Annotation { *; }
+
+
+# retrofit2
 
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
 
-
-
+# gson
 -keep public class com.google.gson
 -keep class Gson**
 -keepclassmembers class Gson** {
     *;
 }
 
-
+# okhttp3
 -dontwarn com.squareup.okhttp3.**
 -keep class com.squareup.okhttp3.** { *;}
 -dontwarn okio.**
 
+# Rxjava/RxAndroid
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+ long producerIndex;
+ long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+ rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
 
--keep class * extends java.lang.annotation.Annotation { *; }
--keep interface * extends java.lang.annotation.Annotation { *; }
+# greenrobot
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+
+# If you do not use SQLCipher:
+-dontwarn org.greenrobot.greendao.database.**
+# If you do not use Rx:
+-dontwarn rx.**
+
+
+# butterknife
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+
+# 自定义lib
+
+-dontwarn com.joybar.**
+-keep class com.joybar.** { *; }
+
+
+# javax.annotation.Nullable
+-dontwarn javax.annotation.**
+-keep class javax.annotation.** { *; }
+
+# log
+ -assumenosideeffects class android.util.Log {
+           public static boolean isLoggable(java.lang.String, int);
+           public static int v(...);
+           public static int i(...);
+           public static int w(...);
+           public static int d(...);
+           public static int e(...);
+       }
+
+
+
 
 # 第三方包 end=============================

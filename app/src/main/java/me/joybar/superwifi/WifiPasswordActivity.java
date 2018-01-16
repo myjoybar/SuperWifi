@@ -4,7 +4,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.joybar.library.common.wiget.SnackBarUtils;
 import com.joybar.library.tracker.TrackerUtil;
 
 import java.util.List;
@@ -19,12 +19,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.joybar.superwifi.application.SuperWIfiApplication;
 import me.joybar.superwifi.base.BaseActivity;
 import me.joybar.superwifi.data.WifiCustomInfo;
 import me.joybar.superwifi.ga.GAType;
 import me.joybar.superwifi.utils.anni.TextSharedElementCallback;
-
-import static me.joybar.superwifi.utils.WifiConfigParse.NO_PASSWORD_TEXT;
 
 public class WifiPasswordActivity extends BaseActivity {
 
@@ -73,10 +72,10 @@ public class WifiPasswordActivity extends BaseActivity {
 
 	@OnClick(R.id.wifi_pwd)
 	void copy(View view) {
-		if(!NO_PASSWORD_TEXT.equals(tvWifiPwd.getText().toString().trim())){
+		if(! SuperWIfiApplication.getInstance().getApplicationContext().getString(R.string.no_password).equals(tvWifiPwd.getText().toString().trim())){
 			ClipboardManager cmb = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
 			cmb.setText(tvWifiPwd.getText().toString().trim());
-			Snackbar.make(tvWifiPwd,WifiPasswordActivity.this.getString(R.string.copy_success), Snackbar.LENGTH_LONG).show();
+			SnackBarUtils.showLong(tvWifiPwd,WifiPasswordActivity.this.getString(R.string.copy_success));
 			TrackerUtil.sentEvent(TAG, GAType.CLICK_COPY_WITH_PWD);
 		}else{
 			TrackerUtil.sentEvent(TAG, GAType.CLICK_COPY_WITH_NOPWD);

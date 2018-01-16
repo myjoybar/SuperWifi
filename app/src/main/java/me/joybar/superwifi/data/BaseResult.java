@@ -1,9 +1,12 @@
 package me.joybar.superwifi.data;
 
+import android.support.annotation.Keep;
+
 /**
  * Created by joybar on 2018/1/9.
  */
 
+@Keep
 public class BaseResult<T> {
 
 	private Integer code;
@@ -44,5 +47,10 @@ public class BaseResult<T> {
 
 	public void setData(T data) {
 		this.data = data;
+	}
+
+	@Override
+	public String toString() {
+		return "BaseResult{" + "code=" + code + ", message='" + message + '\'' + ", responseTime=" + responseTime + ", data=" + data + '}';
 	}
 }

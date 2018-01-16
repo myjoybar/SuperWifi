@@ -94,9 +94,9 @@ dependencies {
     //rootshell
     compile(name: 'RootShell-1.6-release', ext: 'aar')
     // utils lib
-    compile 'com.joybar.libutils:library:1.2.4'
+    compile 'com.joybar.libutils:library:1.3.1'
     // update  dialog
-    compile 'com.joybar.libupdate:libupdate:1.1.7'
+    compile 'com.joybar.libupdate:libupdate:1.1.8'
     // fabric
     compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true;

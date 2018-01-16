@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -20,7 +19,8 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
-import com.joybar.library.common.log.L;
+import com.joybar.library.common.wiget.SnackBarUtils;
+import com.joybar.library.tracker.TrackerUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +34,7 @@ import me.joybar.superwifi.adapter.WifiPasswordAdapter;
 import me.joybar.superwifi.base.BaseFragment;
 import me.joybar.superwifi.data.WifiCustomInfo;
 import me.joybar.superwifi.data.db.WifiInfoDbManager;
+import me.joybar.superwifi.ga.GAType;
 import me.joybar.superwifi.utils.WifiPasswordManager;
 import me.joybar.superwifi.utils.anni.TransitionHelper;
 import me.joybar.superwifi.utils.root.RootCheck;
@@ -43,6 +44,8 @@ import me.joybar.superwifi.utils.root.RootCheck;
  */
 
 public class FragmentPassWordList extends BaseFragment {
+
+    private static final String TAG = "FragmentPassWordList";
 
     private static final int REQUEST_CATEGORY = 0x2300;
     public Unbinder unbinder;
@@ -161,6 +164,7 @@ public class FragmentPassWordList extends BaseFragment {
     private void requestWifiList(boolean isRefresh) {
         boolean mRootAccess = RootCheck.canRunRootCommands();
         if (mRootAccess) {
+            TrackerUtil.sentEvent(TAG, GAType.HAS_ROOT);
             if (isRefresh) {
                 new AsyncTask<Void, Void, ArrayList<WifiCustomInfo>>() {
 
@@ -195,19 +199,18 @@ public class FragmentPassWordList extends BaseFragment {
                 ArrayList<WifiCustomInfo> wifiCustomInfos = (ArrayList<WifiCustomInfo>)
                         wifiInfoDbManager.queryAllWifiData();
                 if (null != wifiCustomInfos && wifiCustomInfos.size() != 0) {
-                    L.d("not null");
                     refreshLayout.setEnabled(true);
                     refreshLayout.setRefreshing(false);
                     mListAdapter.replaceData(wifiCustomInfos);
                     getActivity().findViewById(R.id.progress).setVisibility(View.GONE);
                 } else {
-                    L.d("null");
                     requestWifiList(true);
                 }
             }
         } else {
-            Snackbar.make(refreshLayout, getContext().getString(R.string.no_root_access),
-                    Snackbar.LENGTH_LONG).show();
+            TrackerUtil.sentEvent(TAG, GAType.NO_ROOT);
+            SnackBarUtils.showLong(refreshLayout, getContext().getString(R.string.no_root_access));
+            getActivity().findViewById(R.id.progress).setVisibility(View.GONE);
         }
 
     }

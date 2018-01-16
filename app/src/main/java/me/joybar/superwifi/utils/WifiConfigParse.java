@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 
+import me.joybar.superwifi.R;
+import me.joybar.superwifi.application.SuperWIfiApplication;
 import me.joybar.superwifi.data.WifiCustomInfo;
 
 /**
@@ -18,7 +20,7 @@ import me.joybar.superwifi.data.WifiCustomInfo;
 
 public class WifiConfigParse {
 
-	public static final String NO_PASSWORD_TEXT = "no password";
+	public static final String NO_PASSWORD_TEXT =  SuperWIfiApplication.getInstance().getApplicationContext().getString(R.string.no_password);
 
 	public static ArrayList<WifiCustomInfo> readOreoFile(StringBuilder buffer) {
 

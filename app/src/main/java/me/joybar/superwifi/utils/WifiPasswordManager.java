@@ -6,6 +6,8 @@ import com.stericson.RootShell.execution.Command;
 
 import java.util.ArrayList;
 
+import me.joybar.superwifi.R;
+import me.joybar.superwifi.application.SuperWIfiApplication;
 import me.joybar.superwifi.data.WifiCustomInfo;
 import me.joybar.superwifi.utils.root.RootCheck;
 
@@ -35,7 +37,7 @@ public class WifiPasswordManager {
 	final String WEP_PSK = "wep_key0";
 	final String ENTRY_START = "network={";
 	final String ENTRY_END = "}";
-	public  final String NO_PASSWORD_TEXT = "no password";
+	public  final String NO_PASSWORD_TEXT = SuperWIfiApplication.getInstance().getApplicationContext().getString(R.string.no_password);
 
 	public ArrayList<WifiCustomInfo> readWifiConfigFile() {
 

@@ -3,6 +3,10 @@
     <string name="password">Password</string>
     <string name="back">back</string>
     <string name="copy_success">Copy success</string>
+
+    <string name="grant_root">Please Grant root authority.</string>
+
+
     <string name="no_root_access">No root access</string>
 
     <string name="menu_feedback">Feedback</string>
@@ -11,5 +15,7 @@
 
     <string name="contact_us_with_email"> If you have any questions, please contact us at support_wifipwd@163.com</string>
     <string name="server_is_busy">server is busy,please try again later</string>
+
+    <string name="no_password">no password</string>
 
 </resources>
