@@ -57,9 +57,9 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.activity_main);
 		ButterKnife.bind(this);
 		initToolbar((Toolbar) findViewById(R.id.toolbar), false);
-		checkUpdate();
+		//checkUpdate();
 		SnackBarUtils.showLong((Toolbar) findViewById(R.id.toolbar),this.getString(R.string.grant_root));
-		//initFragment();
+		initFragment();
 	}
 
 	private void checkUpdate() {

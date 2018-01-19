@@ -66,6 +66,8 @@ public class FragmentPassWordList extends BaseFragment {
 
     private List<WifiCustomInfo> mList = new ArrayList<>(0);
 
+    private boolean isFinished;
+
     public FragmentPassWordList() {
         // Requires empty public constructor
     }
@@ -158,6 +160,7 @@ public class FragmentPassWordList extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        isFinished = true;
         unbinder.unbind();
     }
 
@@ -186,12 +189,14 @@ public class FragmentPassWordList extends BaseFragment {
                     protected void onPostExecute(ArrayList<WifiCustomInfo> wifiCustomInfos) {
                         super.onPostExecute(wifiCustomInfos);
                         // L.d(TAG,wifiCustomInfos);
-                        refreshLayout.setEnabled(true);
-                        refreshLayout.setRefreshing(false);
-                        mListAdapter.replaceData(wifiCustomInfos);
-                        getActivity().findViewById(R.id.progress).setVisibility(View.GONE);
-                        if (null != wifiCustomInfos && wifiCustomInfos.size() != 0) {
-                            wifiInfoDbManager.insertWifiDataList(wifiCustomInfos);
+                        if(!isFinished){
+                            refreshLayout.setEnabled(true);
+                            refreshLayout.setRefreshing(false);
+                            mListAdapter.replaceData(wifiCustomInfos);
+                            getActivity().findViewById(R.id.progress).setVisibility(View.GONE);
+                            if (null != wifiCustomInfos && wifiCustomInfos.size() != 0) {
+                                wifiInfoDbManager.insertWifiDataList(wifiCustomInfos);
+                            }
                         }
                     }
                 }.execute();
